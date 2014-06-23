@@ -1,0 +1,34 @@
+1 - Novo projeto Maven -> Aplicação Web;
+
+2 - Preencher o arquivo pom.xml com as dependências necessárias ao projeto (pegar algum arquivo já pronto);
+
+3 - Fazer download das dependências decladas clicando-se em "dependências" -> "Fazer download das dependências declaradas";
+
+4 - Devemos adicionar um arquivo chamado faces-config.xml no diretório WEB-INF.
+
+5 - Para configurar o Hibernate em uma aplicação, devemos criar um arquivo chamado persisten-
+ce.xml.
+
+6 - Criar um Filtro tipo servlet.Filter - As unidades de persistência devem ser inicializadas antes de serem utilizadas, e finalizadas quando
+não forem mais necessárias. A inicialização e a finalização de uma unidade de persistência devem
+ser realizadas apenas uma vez durante a execução da aplicação.
+Para implementar essa característica em aplicações web Java, podemos utilizar um filtro. Os
+filtros de uma aplicação web Java são inicializados automaticamente depois que a aplicação é im-
+plantada no Web Container e antes da primeira requisição HTTP. Além disso, eles são finalizados ao
+término da execução da aplicação.
+Para adicionar um filtro em uma aplicação web Java, é necessário criar uma classe que imple-
+mente a interface javax.servlet.Filter.
+
+7 - Criar packages model, controller, repository. Os ManagedBeans ficarão em controller, e devem ter este método abaixo:
+    private EntityManager getEntityManager() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = fc.getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+        EntityManager manager = (EntityManager) request.getAttribute("EntityManager");
+
+        return manager;
+    }
+
+8 - 
+
+
