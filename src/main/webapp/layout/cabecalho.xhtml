@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">                       
+    <h:body>      
+        <h:form> 
+            <p:growl id="messages"/>
+
+            <p:menubar>
+
+                <p:menuitem value="LOCADORA" url="#"></p:menuitem>
+
+                <p:submenu label="Clientes" icon="ui-icon-document">
+                    <p:menuitem value="Novo" url="/cliente/novoCliente.xhtml" />
+                    <p:separator />
+                    <p:menuitem value="Lista" url="#" />
+                </p:submenu>
+
+                <p:submenu label="Funcionarios" icon="ui-icon-pencil">
+                    <p:menuitem value="Novo" url="#" />
+                    <p:separator />
+                    <p:menuitem value="Lista" url="#" />
+                </p:submenu>
+
+                <p:submenu label="Veículos" icon="ui-icon-help">
+                    <p:menuitem value="Novo" url="#" />
+                    <p:separator />
+                    <p:menuitem value="Lista" url="#" />
+                </p:submenu>
+
+                <p:submenu label="Oficinas" icon="ui-icon-help">
+                    <p:menuitem value="Novo" url="#" />
+                    <p:separator />
+                    <p:menuitem value="Lista" url="#" />
+                </p:submenu>
+
+                <p:submenu label="Locações" icon="ui-icon-help">
+                    <p:menuitem value="Novo" url="#" />
+                    <p:separator />
+                    <p:menuitem value="Lista" url="#" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+
+    </h:body>    
+</ui:composition>

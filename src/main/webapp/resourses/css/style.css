@@ -1,0 +1,33 @@
+/* 
+    Document   : style
+    Created on : Jun 24, 2014, 4:45:31 PM
+    Author     : labin05
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.ui-layout-north {
+    z-index:20 !important;
+    overflow:visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+    overflow:visible !important;
+}
+
+body {
+    background-color: #FFFFFF;
+}
+
+.tituloCentro{
+    margin-top: 20px;
+    margin-left: 50px; 
+}
+
+.panelNovo{
+    margin: 50px;
+}

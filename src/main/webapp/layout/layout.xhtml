@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>        
+        <title>
+            <ui:insert name="title">Locadora</ui:insert>            
+        </title>
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'/>
+        <link rel="stylesheet" href="#{facesContext.externalContext.request.contextPath}/resourses/css/style.css"/>
+    </h:head>
+
+    <h:body>        
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="60" resizable="false"  >
+                    <ui:insert name="cabecalho" >
+                        <ui:include src="/layout/cabecalho.xhtml" />
+                    </ui:insert>
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="west" size="180"  resizable="false" closable="true" collapsible="true" >
+                    <ui:insert name="menu-geral">
+                        
+                    </ui:insert>
+                </p:layoutUnit>
+                
+                <p:layoutUnit id="conteudo" position="center" resizable="true" >
+                    <ui:insert id="centroConteudo" name="conteudo">
+                      
+                    </ui:insert>
+                </p:layoutUnit>
+            </p:layout>
+    </h:body>
+</html>
