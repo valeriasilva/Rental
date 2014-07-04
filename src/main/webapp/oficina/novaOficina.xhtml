@@ -13,25 +13,21 @@ and open the template in the editor.
 
     <!--mudança!  -->
     <ui:define name="title">
-        Novo Cliente
+        Nova Oficina
     </ui:define>    
 
     <ui:define name="conteudo">
-        <h:outputText value="Novo Cliente" class="tituloCentro" />
+        <h:outputText value="Nova Oficina" class="tituloCentro" />
         <h:form>
             <p:growl id="growl" showDetail="false" />  
             <h:panelGrid columns="2" class="panelNovo">
                 <h:outputText value="Nome"/>
-                <h:inputText required="true" requiredMessage="Informe o nome" value="#{clienteController.cliente.nome}"/>
+                <h:inputText required="true" requiredMessage="Informe o nome" value="#{oficinaController.oficina.nome}"/>
                 <h:outputText value="Telefone"/>
-                <h:inputText required="true" requiredMessage="Informe o telefone" value="#{clienteController.cliente.telefone}"/>
-                <h:outputText value="CPF"/>
-                <h:inputText required="true" requiredMessage="Informe o CPF" value="#{clienteController.cliente.cpf}"/>
-                <h:outputText value="RG"/>
-                <h:inputText required="true" requiredMessage="Informe o RG" value="#{clienteController.cliente.rg}"/>
+                <h:inputText required="true" requiredMessage="Informe o telefone" value="#{oficinaController.oficina.telefone}"/>
                 <h:outputText value="Cidade"/>
-
-                <h:commandButton value="Salvar" action="#{clienteController.salvar()}"/>
+                
+                <h:commandButton value="Salvar" action="#{oficinaController.salvar()}"/>
 
             </h:panelGrid>
         </h:form>

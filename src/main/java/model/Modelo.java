@@ -35,7 +35,7 @@ public class Modelo implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0);
         return hash;
     }
 
@@ -46,7 +46,7 @@ public class Modelo implements Serializable {
             return false;
         }
         Modelo other = (Modelo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -54,7 +54,35 @@ public class Modelo implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Modelo[ id=" + id + " ]";
+        return "model.Modelo[ id=" + getId() + " ]";
+    }
+
+    /**
+     * @return the nome
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    /**
+     * @return the marca
+     */
+    public Marca getMarca() {
+        return marca;
+    }
+
+    /**
+     * @param marca the marca to set
+     */
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
     
 }

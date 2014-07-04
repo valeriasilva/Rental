@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                >   
+
+    <!--mudança!  -->
+    <ui:define name="title">
+        Nova Marca
+    </ui:define>    
+
+    <ui:define name="conteudo">
+        <h:outputText value="Nova Marca" class="tituloCentro" />
+        <h:form>
+            <p:growl id="growl" showDetail="false" />  
+            <h:panelGrid columns="2" class="panelNovo">
+                <h:outputText value="Nome"/>
+                <h:inputText required="true" requiredMessage="Informe o nome" value="#{marcaController.marca.nome}"/>
+
+                <h:commandButton value="Salvar" action="#{marcaController.salvar()}"/>
+
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

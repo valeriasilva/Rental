@@ -38,7 +38,7 @@ public class Oficina implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0);
         return hash;
     }
 
@@ -49,7 +49,7 @@ public class Oficina implements Serializable {
             return false;
         }
         Oficina other = (Oficina) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -57,7 +57,63 @@ public class Oficina implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Oficina[ id=" + id + " ]";
+        return "model.Oficina[ id=" + getId() + " ]";
+    }
+
+    /**
+     * @return the manutencoes
+     */
+    public List<Manutencao> getManutencoes() {
+        return manutencoes;
+    }
+
+    /**
+     * @param manutencoes the manutencoes to set
+     */
+    public void setManutencoes(List<Manutencao> manutencoes) {
+        this.manutencoes = manutencoes;
+    }
+
+    /**
+     * @return the nome
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    /**
+     * @return the telefone
+     */
+    public String getTelefone() {
+        return telefone;
+    }
+
+    /**
+     * @param telefone the telefone to set
+     */
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    /**
+     * @return the cidade
+     */
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    /**
+     * @param cidade the cidade to set
+     */
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
     
 }

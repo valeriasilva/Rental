@@ -13,31 +13,32 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import model.Cliente;
+import model.Oficina;
+import model.Oficina;
 import repository.GenericRepository;
 
 
 @ManagedBean
 @RequestScoped
-public class ClienteController implements Serializable {
+public class OficinaController implements Serializable {
 
-    private Cliente cliente;
-    private List<Class> clientes;
+    private Oficina oficina;
+    private List<Class> oficinas;
 
     /**
-     * Creates a new instance of ClienteController
+     * Creates a new instance of OficinaController
      */
-    public ClienteController() {
-        this.cliente = new Cliente();
-        this.clientes = new ArrayList<Class>();
+    public OficinaController() {
+        this.oficina = new Oficina();
+        this.oficinas = new ArrayList<Class>();
     }
 
     public void salvar() {
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
         try {
-            repository.adiciona(this.getCliente());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cliente inserido!!"));
+            repository.adiciona(this.getOficina());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Oficina inserido!!"));
 
         } catch (Exception e) {
             System.out.println(e);
@@ -45,8 +46,8 @@ public class ClienteController implements Serializable {
 
         }
 
-        this.setCliente(new Cliente());
-        this.setClientes((List<Class>) new ArrayList());
+        this.setOficina(new Oficina());
+        this.setOficinas((List<Class>) new ArrayList());
     }
     
      public static EntityManager getEntityManager() {
@@ -57,42 +58,42 @@ public class ClienteController implements Serializable {
     }
 
     /**
-     * @return the cliente
+     * @return the oficina
      */
-    public Cliente getCliente() {
-        return cliente;
+    public Oficina getOficina() {
+        return oficina;
     }
 
     /**
-     * @param cliente the cliente to set
+     * @param oficina the oficina to set
      */
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setOficina(Oficina oficina) {
+        this.oficina = oficina;
     }
 
     /**
-     * @return the clientes
+     * @return the oficinas
      */
-    public List<Class> allClientes() {
-        if (this.getClientes() == null) {
+    public List<Class> allOficinas() {
+        if (this.getOficinas() == null) {
             EntityManager manager = this.getEntityManager();
             GenericRepository repository = new GenericRepository(manager);
-            this.setClientes(repository.buscaTodos("Cliente"));
+            this.setOficinas(repository.buscaTodos("Oficina"));
         }
-        return this.getClientes();
+        return this.getOficinas();
     }
 
     /**
-     * @param clientes the clientes to set
+     * @param oficinas the oficinas to set
      */
-    public void setClientes(List<Class> clientes) {
-        this.clientes = clientes;
+    public void setOficinas(List<Class> oficinas) {
+        this.oficinas = oficinas;
     }
 
     /**
-     * @return the clientes
+     * @return the oficinas
      */
-    public List<Class> getClientes() {
-        return clientes;
+    public List<Class> getOficinas() {
+        return oficinas;
     }
 }

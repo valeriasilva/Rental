@@ -40,7 +40,7 @@ public class Veiculo implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0);
         return hash;
     }
 
@@ -51,7 +51,7 @@ public class Veiculo implements Serializable {
             return false;
         }
         Veiculo other = (Veiculo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -59,7 +59,77 @@ public class Veiculo implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Veiculo[ id=" + id + " ]";
+        return "model.Veiculo[ id=" + getId() + " ]";
+    }
+
+    /**
+     * @return the placa
+     */
+    public String getPlaca() {
+        return placa;
+    }
+
+    /**
+     * @param placa the placa to set
+     */
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    /**
+     * @return the renavam
+     */
+    public String getRenavam() {
+        return renavam;
+    }
+
+    /**
+     * @param renavam the renavam to set
+     */
+    public void setRenavam(String renavam) {
+        this.renavam = renavam;
+    }
+
+    /**
+     * @return the motorizacao
+     */
+    public String getMotorizacao() {
+        return motorizacao;
+    }
+
+    /**
+     * @param motorizacao the motorizacao to set
+     */
+    public void setMotorizacao(String motorizacao) {
+        this.motorizacao = motorizacao;
+    }
+
+    /**
+     * @return the marca
+     */
+    public Marca getMarca() {
+        return marca;
+    }
+
+    /**
+     * @param marca the marca to set
+     */
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+
+    /**
+     * @return the modelo
+     */
+    public Modelo getModelo() {
+        return modelo;
+    }
+
+    /**
+     * @param modelo the modelo to set
+     */
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
     }
     
 }

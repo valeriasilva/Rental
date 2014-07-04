@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                >   
+
+    <!--mudança!  -->
+    <ui:define name="title">
+        Novo Veiculo
+    </ui:define>    
+
+    <ui:define name="conteudo">
+        <h:outputText value="Novo Veiculo" class="tituloCentro" />
+        <h:form>
+            <p:growl id="growl" showDetail="false" />  
+            <h:panelGrid columns="2" class="panelNovo">
+                <h:outputText value="Plava"/>
+                <h:inputText required="true" requiredMessage="Informe a Placa" value="#{veiculoController.veiculo.placa}"/>
+                <h:outputText value="Renavam"/>
+                <h:inputText required="true" requiredMessage="Informe o Renavam" value="#{veiculoController.veiculo.renavam}"/>
+                <h:outputText value="Motorizacao"/>
+                <h:inputText required="true" requiredMessage="Informe o Motor" value="#{veiculoController.veiculo.motorizacao}"/>
+
+                <h:outputText value="Marca"/>
+                <h:selectOneMenu value="#{veiculoController.veiculo.marca}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems  value="#{marcaController.marcas}" var="marca" itemLabel="#{marca.nome}" itemValue="#{marca}"  />
+                    <f:ajax render="modelo" event="change" listener="#{veiculoController.modelosByMarca}"/>
+                </h:selectOneMenu>
+
+                <h:outputText value="Modelo"/>
+                <h:selectOneMenu id="modelo" value="#{veiculoController.veiculo.modelo}}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{veiculoController.modelosFiltrados}" var="modelo" itemLabel="#{modelo.nome}" itemValue="#{modelo}"  />
+                </h:selectOneMenu>
+
+                <h:commandButton value="Salvar" action="#{veiculoController.salvar()}"/>
+
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

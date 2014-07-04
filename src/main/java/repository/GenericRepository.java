@@ -27,7 +27,14 @@ public class GenericRepository {
     }
 
     public List<Class> buscaTodos(String table) {
+        System.out.println("marcas");
         Query query = this.manager.createQuery(" select x from " + table + " x");
+        List<Class> listResult = query.getResultList();
+        return listResult;
+    }
+    
+    public List<Class> listModelosByMarca(Long idMarca) {
+        Query query = this.manager.createQuery(" select x from Modelo x where x.marca.id = " + idMarca);
         List<Class> listResult = query.getResultList();
         return listResult;
     }

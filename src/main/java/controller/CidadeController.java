@@ -13,31 +13,31 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import model.Cliente;
+import model.Cidade;
 import repository.GenericRepository;
 
 
 @ManagedBean
 @RequestScoped
-public class ClienteController implements Serializable {
+public class CidadeController implements Serializable {
 
-    private Cliente cliente;
-    private List<Class> clientes;
+    private Cidade cidade;
+    private List<Class> cidades;
 
     /**
-     * Creates a new instance of ClienteController
+     * Creates a new instance of CidadeController
      */
-    public ClienteController() {
-        this.cliente = new Cliente();
-        this.clientes = new ArrayList<Class>();
+    public CidadeController() {
+        this.cidade = new Cidade();
+        this.cidades = new ArrayList<Class>();
     }
 
     public void salvar() {
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
         try {
-            repository.adiciona(this.getCliente());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cliente inserido!!"));
+            repository.adiciona(this.getCidade());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cidade inserido!!"));
 
         } catch (Exception e) {
             System.out.println(e);
@@ -45,8 +45,8 @@ public class ClienteController implements Serializable {
 
         }
 
-        this.setCliente(new Cliente());
-        this.setClientes((List<Class>) new ArrayList());
+        this.setCidade(new Cidade());
+        this.setCidades((List<Class>) new ArrayList());
     }
     
      public static EntityManager getEntityManager() {
@@ -57,42 +57,42 @@ public class ClienteController implements Serializable {
     }
 
     /**
-     * @return the cliente
+     * @return the cidade
      */
-    public Cliente getCliente() {
-        return cliente;
+    public Cidade getCidade() {
+        return cidade;
     }
 
     /**
-     * @param cliente the cliente to set
+     * @param cidade the cidade to set
      */
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 
     /**
-     * @return the clientes
+     * @return the cidades
      */
-    public List<Class> allClientes() {
-        if (this.getClientes() == null) {
+    public List<Class> allCidades() {
+        if (this.getCidades() == null) {
             EntityManager manager = this.getEntityManager();
             GenericRepository repository = new GenericRepository(manager);
-            this.setClientes(repository.buscaTodos("Cliente"));
+            this.setCidades(repository.buscaTodos("Cidade"));
         }
-        return this.getClientes();
+        return this.getCidades();
     }
 
     /**
-     * @param clientes the clientes to set
+     * @param cidades the cidades to set
      */
-    public void setClientes(List<Class> clientes) {
-        this.clientes = clientes;
+    public void setCidades(List<Class> cidades) {
+        this.cidades = cidades;
     }
 
     /**
-     * @return the clientes
+     * @return the cidades
      */
-    public List<Class> getClientes() {
-        return clientes;
+    public List<Class> getCidades() {
+        return cidades;
     }
 }
