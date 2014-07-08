@@ -11,14 +11,14 @@ import javax.el.ELContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import model.Cliente;
 import repository.GenericRepository;
 
-
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ClienteController implements Serializable {
 
     private Cliente cliente;
@@ -49,7 +49,23 @@ public class ClienteController implements Serializable {
         this.setClientes((List<Class>) new ArrayList());
     }
     
-     public static EntityManager getEntityManager() {
+      public void alterar() {
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        repository.update(this.cliente);
+        this.setCliente(new Cliente());
+    }
+
+    public void remover() {
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        repository.remove(this.cliente);
+        this.cliente = new Cliente();
+        this.clientes = null;
+        this.getClientes();
+    }
+
+    public static EntityManager getEntityManager() {
         ELContext elContext = FacesContext.getCurrentInstance().getELContext();
         EntityManager entityManager = (EntityManager) FacesContext.getCurrentInstance().
                 getApplication().getELResolver().getValue(elContext, null, "entityManager");
@@ -73,15 +89,6 @@ public class ClienteController implements Serializable {
     /**
      * @return the clientes
      */
-    public List<Class> allClientes() {
-        if (this.getClientes() == null) {
-            EntityManager manager = this.getEntityManager();
-            GenericRepository repository = new GenericRepository(manager);
-            this.setClientes(repository.buscaTodos("Cliente"));
-        }
-        return this.getClientes();
-    }
-
     /**
      * @param clientes the clientes to set
      */
@@ -93,6 +100,11 @@ public class ClienteController implements Serializable {
      * @return the clientes
      */
     public List<Class> getClientes() {
-        return clientes;
+
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        this.setClientes(repository.buscaTodos("Cliente"));
+
+        return this.clientes;
     }
 }

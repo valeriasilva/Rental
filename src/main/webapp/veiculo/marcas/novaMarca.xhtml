@@ -19,7 +19,7 @@ and open the template in the editor.
     <ui:define name="conteudo">
         <h:outputText value="Nova Marca" class="tituloCentro" />
         <h:form>
-            <p:growl id="growl" showDetail="false" />  
+            <p:growl id="growl" showDetail="true" />  
             <h:panelGrid columns="2" class="panelNovo">
                 <h:outputText value="Nome"/>
                 <h:inputText required="true" requiredMessage="Informe o nome" value="#{marcaController.marca.nome}"/>

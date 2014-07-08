@@ -37,7 +37,7 @@ public class Estado implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0);
         return hash;
     }
 
@@ -48,7 +48,7 @@ public class Estado implements Serializable {
             return false;
         }
         Estado other = (Estado) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -56,6 +56,34 @@ public class Estado implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Estado[ id=" + id + " ]";
+        return "model.Estado[ id=" + getId() + " ]";
+    }
+
+    /**
+     * @return the nome
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    /**
+     * @return the cidades
+     */
+    public List<Cidade> getCidades() {
+        return cidades;
+    }
+
+    /**
+     * @param cidades the cidades to set
+     */
+    public void setCidades(List<Cidade> cidades) {
+        this.cidades = cidades;
     }
 }

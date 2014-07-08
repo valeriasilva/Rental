@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                xmlns:f="http://xmlns.jcp.org/jsf/core">   
+
+    <!--mudança!  -->
+    <ui:define name="title">
+        Lista de Clientes
+    </ui:define>    
+
+    <ui:define name="conteudo">
+
+        <h:form id="formPrincipal">
+            <p:growl id="growl" showDetail="true" /> 
+
+
+            <p:dataTable  emptyMessage="Nenhum registro encontrado" var="lista" value="#{clienteController.clientes}" id="tabelaClientes" widgetVar="clienteTable">
+                <f:facet name="header">Lista de Atendentes</f:facet>
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{lista.nome}" />
+                </p:column>
+                <p:column headerText="Telefone">
+                    <h:outputText value="#{lista.telefone}" />
+                </p:column>
+                <p:column headerText="CPF">
+                    <h:outputText value="#{lista.cpf}" />
+                </p:column>
+                <p:column headerText="RG">
+                    <h:outputText value="#{lista.rg}" />
+                </p:column>
+                <p:column headerText="Cidade">
+                    <h:outputText value="#{lista.cidade.nome}" />
+                </p:column>
+
+                <p:column headerText="Ações">
+                    <p:commandButton value="Alterar" title="Alterar" update=":formAlterar:Alterar" oncomplete="dialogAlterar.show()" immediate="true">
+                        <f:setPropertyActionListener target="#{clienteController.cliente}" value="#{lista}" />
+                    </p:commandButton>
+                    <p:commandButton value="Excluir" title="Excluir" action="#{clienteController.remover()}" update=":formPrincipal:tabelaClientes">
+                        <f:setPropertyActionListener target="#{clienteController.cliente}" value="#{lista}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="formAlterar"> 
+            <p:dialog id="Alterar" header="Alterar Cliente" widgetVar="dialogAlterar"  resizable="false" modal="false" showEffect="slide" width="500">           
+                <h:panelGrid columns="2" class="panelNovo">
+                    <h:outputText value="Nome"/>
+                    <h:inputText required="true" requiredMessage="Informe o nome" value="#{clienteController.cliente.nome}"/>
+                    <h:outputText value="Telefone"/>
+                    <h:inputText required="true" requiredMessage="Informe o telefone" value="#{clienteController.cliente.telefone}"/>
+                    <h:outputText value="CPF"/>
+                    <h:inputText required="true" requiredMessage="Informe o CPF" value="#{clienteController.cliente.cpf}"/>
+                    <h:outputText value="RG"/>
+                    <h:inputText required="true" requiredMessage="Informe o RG" value="#{clienteController.cliente.rg}"/>
+                    <h:outputText value="Cidade"/>
+                    <h:selectOneMenu id="cidade" value="#{clienteController.cliente.cidade}" style="width:250px;" converter="entityConverter"> 
+                        <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                        <f:selectItems value="#{cidadeController.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"  />
+                    </h:selectOneMenu>
+
+                </h:panelGrid>
+                <p:commandButton value="Alterar" action="#{clienteController.alterar}" update=":formPrincipal:tabelaClientes" oncomplete="dialogAlterar.hide()"/>
+            
+            </p:dialog>        
+        </h:form> 
+    </ui:define>
+</ui:composition>

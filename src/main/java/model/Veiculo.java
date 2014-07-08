@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Veiculo implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -27,7 +28,6 @@ public class Veiculo implements Serializable {
     private Marca marca;
     @ManyToOne
     private Modelo modelo;
-    
 
     public Long getId() {
         return id;
@@ -131,5 +131,4 @@ public class Veiculo implements Serializable {
     public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }
-    
 }

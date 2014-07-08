@@ -19,19 +19,17 @@ and open the template in the editor.
     <ui:define name="conteudo">
         <h:outputText value="Nova Cidade" class="tituloCentro" />
         <h:form>
-            <p:growl id="growl" showDetail="false" />  
+            <p:growl id="growl" showDetail="true" />  
             <h:panelGrid columns="2" class="panelNovo">
                 <h:outputText value="Nome"/>
-                <h:inputText required="true" requiredMessage="Informe o nome" value="#{clienteController.cliente.nome}"/>
-                <h:outputText value="Telefone"/>
-                <h:inputText required="true" requiredMessage="Informe o telefone" value="#{clienteController.cliente.telefone}"/>
-                <h:outputText value="CPF"/>
-                <h:inputText required="true" requiredMessage="Informe o CPF" value="#{clienteController.cliente.cpf}"/>
-                <h:outputText value="RG"/>
-                <h:inputText required="true" requiredMessage="Informe o RG" value="#{clienteController.cliente.rg}"/>
+                <h:inputText required="true" requiredMessage="Informe o nome da cidade" value="#{cidadeController.cidade.nome}"/>
                 <h:outputText value="Cidade"/>
+                <h:selectOneMenu id="estado" value="#{cidadeController.cidade.estado}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{estadoController.estados}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}"  />
+                </h:selectOneMenu>
 
-                <h:commandButton value="Salvar" action="#{clienteController.salvar()}"/>
+                <h:commandButton value="Salvar" action="#{cidadeController.salvar()}"/>
 
             </h:panelGrid>
         </h:form>

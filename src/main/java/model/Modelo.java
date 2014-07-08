@@ -11,10 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-/**
- *
- * @author labin05
- */
+
 @Entity
 public class Modelo implements Serializable {
     @Id
@@ -23,7 +20,7 @@ public class Modelo implements Serializable {
     private String nome;
     @ManyToOne
     private Marca marca;
-    
+
     public Long getId() {
         return id;
     }

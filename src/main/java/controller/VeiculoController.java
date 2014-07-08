@@ -18,11 +18,10 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import model.Veiculo;
-import model.Veiculo;
 import repository.GenericRepository;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class VeiculoController implements Serializable {
 
     private Veiculo veiculo;
@@ -38,6 +37,7 @@ public class VeiculoController implements Serializable {
     }
 
     public void salvar() {
+        System.out.println("entrou");
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
         try {

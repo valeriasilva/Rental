@@ -19,7 +19,7 @@ and open the template in the editor.
     <ui:define name="conteudo">
         <h:outputText value="Novo Veiculo" class="tituloCentro" />
         <h:form>
-            <p:growl id="growl" showDetail="false" />  
+            <p:growl id="growl" showDetail="true" />  
             <h:panelGrid columns="2" class="panelNovo">
                 <h:outputText value="Plava"/>
                 <h:inputText required="true" requiredMessage="Informe a Placa" value="#{veiculoController.veiculo.placa}"/>
@@ -36,9 +36,10 @@ and open the template in the editor.
                 </h:selectOneMenu>
 
                 <h:outputText value="Modelo"/>
-                <h:selectOneMenu id="modelo" value="#{veiculoController.veiculo.modelo}}" style="width:250px;" converter="entityConverter"> 
+                <h:selectOneMenu id="modelo" value="#{veiculoController.veiculo.modelo}" style="width:250px;" converter="entityConverter"> 
                     <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
                     <f:selectItems value="#{veiculoController.modelosFiltrados}" var="modelo" itemLabel="#{modelo.nome}" itemValue="#{modelo}"  />
+                    <p:ajax event="change" process="@this"/> 
                 </h:selectOneMenu>
 
                 <h:commandButton value="Salvar" action="#{veiculoController.salvar()}"/>

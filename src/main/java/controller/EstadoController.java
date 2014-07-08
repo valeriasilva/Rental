@@ -13,30 +13,30 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import model.Cidade;
+import model.Estado;
 import repository.GenericRepository;
 
 @ManagedBean
 @RequestScoped
-public class CidadeController implements Serializable {
+public class EstadoController implements Serializable {
 
-    private Cidade cidade;
-    private List<Class> cidades;
+    private Estado estado;
+    private List<Class> estados;
 
     /**
-     * Creates a new instance of CidadeController
+     * Creates a new instance of EstadoController
      */
-    public CidadeController() {
-        this.cidade = new Cidade();
-        this.cidades = new ArrayList<Class>();
+    public EstadoController() {
+        this.estado = new Estado();
+        this.estados = new ArrayList<Class>();
     }
 
     public void salvar() {
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
         try {
-            repository.adiciona(this.getCidade());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cidade inserido!!"));
+            repository.adiciona(this.getEstado());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Estado inserido!!"));
 
         } catch (Exception e) {
             System.out.println(e);
@@ -44,8 +44,8 @@ public class CidadeController implements Serializable {
 
         }
 
-        this.setCidade(new Cidade());
-        this.setCidades((List<Class>) new ArrayList());
+        this.setEstado(new Estado());
+        this.setEstados((List<Class>) new ArrayList());
     }
 
     public static EntityManager getEntityManager() {
@@ -56,34 +56,43 @@ public class CidadeController implements Serializable {
     }
 
     /**
-     * @return the cidade
+     * @return the estado
      */
-    public Cidade getCidade() {
-        return cidade;
+    public Estado getEstado() {
+        return estado;
     }
 
     /**
-     * @param cidade the cidade to set
+     * @param estado the estado to set
      */
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     /**
-     * @param cidades the cidades to set
+     * @return the estados
      */
-    public void setCidades(List<Class> cidades) {
-        this.cidades = cidades;
+    public List<Class> allEstados() {
+
+        return null;
     }
 
     /**
-     * @return the cidades
+     * @param estados the estados to set
      */
-    public List<Class> getCidades() {
+    public void setEstados(List<Class> estados) {
+        this.estados = estados;
+    }
+
+    /**
+     * @return the estados
+     */
+    public List<Class> getEstados() {
+        
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
-        this.setCidades(repository.buscaTodos("Cidade"));
+        this.setEstados(repository.buscaTodos("Estado"));
 
-        return this.cidades;
+        return estados;
     }
 }

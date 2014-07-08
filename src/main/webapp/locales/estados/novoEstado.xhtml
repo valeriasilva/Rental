@@ -13,25 +13,18 @@ and open the template in the editor.
 
     <!--mudança!  -->
     <ui:define name="title">
-        Nova Cidade
+        Novo Estado
     </ui:define>    
 
     <ui:define name="conteudo">
-        <h:outputText value="Nova Cidade" class="tituloCentro" />
+        <h:outputText value="Novo Estado" class="tituloCentro" />
         <h:form>
-            <p:growl id="growl" showDetail="false" />  
+            <p:growl id="growl" showDetail="true" />  
             <h:panelGrid columns="2" class="panelNovo">
                 <h:outputText value="Nome"/>
-                <h:inputText required="true" requiredMessage="Informe o nome" value="#{clienteController.cliente.nome}"/>
-                <h:outputText value="Telefone"/>
-                <h:inputText required="true" requiredMessage="Informe o telefone" value="#{clienteController.cliente.telefone}"/>
-                <h:outputText value="CPF"/>
-                <h:inputText required="true" requiredMessage="Informe o CPF" value="#{clienteController.cliente.cpf}"/>
-                <h:outputText value="RG"/>
-                <h:inputText required="true" requiredMessage="Informe o RG" value="#{clienteController.cliente.rg}"/>
-                <h:outputText value="Cidade"/>
+                <h:inputText required="true" requiredMessage="Informe o nome" value="#{estadoController.estado.nome}"/>
 
-                <h:commandButton value="Salvar" action="#{clienteController.salvar()}"/>
+                <h:commandButton value="Salvar" action="#{estadoController.salvar()}"/>
 
             </h:panelGrid>
         </h:form>

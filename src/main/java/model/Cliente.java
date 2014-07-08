@@ -23,7 +23,7 @@ public class Cliente implements Serializable {
     private String telefone;
     private String cpf;
     private String rg;
-    //private Cidade cidade;
+    private Cidade cidade;
 
     /**
      * @return the id
@@ -86,6 +86,27 @@ public class Cliente implements Serializable {
      */
     public void setRg(String rg) {
         this.rg = rg;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the cidade
+     */
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    /**
+     * @param cidade the cidade to set
+     */
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 
   

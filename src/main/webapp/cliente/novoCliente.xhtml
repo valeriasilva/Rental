@@ -19,7 +19,7 @@ and open the template in the editor.
     <ui:define name="conteudo">
         <h:outputText value="Novo Cliente" class="tituloCentro" />
         <h:form>
-            <p:growl id="growl" showDetail="false" />  
+            <p:growl id="growl" showDetail="true" />  
             <h:panelGrid columns="2" class="panelNovo">
                 <h:outputText value="Nome"/>
                 <h:inputText required="true" requiredMessage="Informe o nome" value="#{clienteController.cliente.nome}"/>
@@ -30,6 +30,10 @@ and open the template in the editor.
                 <h:outputText value="RG"/>
                 <h:inputText required="true" requiredMessage="Informe o RG" value="#{clienteController.cliente.rg}"/>
                 <h:outputText value="Cidade"/>
+                <h:selectOneMenu id="cidade" value="#{clienteController.cliente.cidade}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{cidadeController.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"  />
+                </h:selectOneMenu>
 
                 <h:commandButton value="Salvar" action="#{clienteController.salvar()}"/>
 

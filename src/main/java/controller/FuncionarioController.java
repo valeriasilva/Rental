@@ -29,7 +29,7 @@ public class FuncionarioController implements Serializable {
      */
     public FuncionarioController() {
         this.funcionario = new Funcionario();
-        this.funcionarios = new ArrayList<>();
+        this.funcionarios = new ArrayList<Class>();
     }
 
     public void salvar() {

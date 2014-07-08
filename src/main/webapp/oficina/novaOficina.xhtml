@@ -19,13 +19,17 @@ and open the template in the editor.
     <ui:define name="conteudo">
         <h:outputText value="Nova Oficina" class="tituloCentro" />
         <h:form>
-            <p:growl id="growl" showDetail="false" />  
+            <p:growl id="growl" showDetail="true" />  
             <h:panelGrid columns="2" class="panelNovo">
                 <h:outputText value="Nome"/>
                 <h:inputText required="true" requiredMessage="Informe o nome" value="#{oficinaController.oficina.nome}"/>
                 <h:outputText value="Telefone"/>
                 <h:inputText required="true" requiredMessage="Informe o telefone" value="#{oficinaController.oficina.telefone}"/>
                 <h:outputText value="Cidade"/>
+                 <h:selectOneMenu id="cidade" value="#{oficinaController.oficina.cidade}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{cidadeController.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"  />
+                </h:selectOneMenu>
                 
                 <h:commandButton value="Salvar" action="#{oficinaController.salvar()}"/>
 
