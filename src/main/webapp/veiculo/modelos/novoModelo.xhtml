@@ -19,15 +19,15 @@ and open the template in the editor.
     <ui:define name="conteudo">
         <h:outputText value="Novo Modelo" class="tituloCentro" />
         <h:form>
-            <p:growl id="growl" showDetail="true" />  
+            <p:growl id="growl" showDetail="true" /> 
+
             <h:panelGrid columns="2" class="panelNovo">
                 <h:outputText value="Nome"/>
                 <h:inputText required="true" requiredMessage="Informe o nome" value="#{modeloController.modelo.nome}"/>
                 <h:outputText value="Marca"/>
-                <h:selectOneMenu value="#{modeloController.modelo.marca}" style="width:250px;" converter="entityConverter"> 
+                <h:selectOneMenu id="marca" value="#{modeloController.modelo.marca}" style="width:250px;" converter="entityConverter"> 
                     <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
                     <f:selectItems  value="#{marcaController.marcas}" var="marca" itemLabel="#{marca.nome}" itemValue="#{marca}"  />
-                    <p:ajax event="change" process="@this"/> 
                 </h:selectOneMenu>
 
                 <h:commandButton value="Salvar" action="#{modeloController.salvar()}"/>

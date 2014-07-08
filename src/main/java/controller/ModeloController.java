@@ -8,13 +8,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.el.ELContext;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import model.Marca;
 import model.Modelo;
 import repository.GenericRepository;
 
@@ -35,6 +36,7 @@ public class ModeloController implements Serializable {
     }
 
     public void salvar() {
+        System.out.println("tt");
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
         try {
