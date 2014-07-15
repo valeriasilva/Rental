@@ -24,6 +24,7 @@ public class Cliente implements Serializable {
     private String cpf;
     private String rg;
     private Cidade cidade;
+    private String cnh;
 
     /**
      * @return the id
@@ -107,6 +108,20 @@ public class Cliente implements Serializable {
      */
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
+    }
+
+    /**
+     * @return the cnh
+     */
+    public String getCnh() {
+        return cnh;
+    }
+
+    /**
+     * @param cnh the cnh to set
+     */
+    public void setCnh(String cnh) {
+        this.cnh = cnh;
     }
 
   

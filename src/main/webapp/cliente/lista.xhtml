@@ -37,6 +37,9 @@ and open the template in the editor.
                 <p:column headerText="RG">
                     <h:outputText value="#{lista.rg}" />
                 </p:column>
+                <p:column headerText="CNH">
+                    <h:outputText value="#{lista.cnh}" />
+                </p:column>
                 <p:column headerText="Cidade">
                     <h:outputText value="#{lista.cidade.nome}" />
                 </p:column>
@@ -63,6 +66,9 @@ and open the template in the editor.
                     <h:inputText required="true" requiredMessage="Informe o CPF" value="#{clienteController.cliente.cpf}"/>
                     <h:outputText value="RG"/>
                     <h:inputText required="true" requiredMessage="Informe o RG" value="#{clienteController.cliente.rg}"/>
+                     <h:outputText value="CNH"/>
+                    <h:inputText required="true" requiredMessage="Informe o CNH" value="#{clienteController.cliente.cnh}"/>
+                    
                     <h:outputText value="Cidade"/>
                     <h:selectOneMenu id="cidade" value="#{clienteController.cliente.cidade}" style="width:250px;" converter="entityConverter"> 
                         <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>

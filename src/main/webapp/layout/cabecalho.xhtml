@@ -21,7 +21,7 @@
                 <p:submenu label="Funcionarios" icon="ui-icon-person">
                     <p:menuitem value="Novo" url="/funcionario/novoFuncionario.xhtml" />
                     <p:separator />
-                    <p:menuitem value="Lista" url="#" />
+                    <p:menuitem value="Lista" url="/funcionario/lista.xhtml" />
                 </p:submenu>
 
                 <p:submenu label="Veiculos" icon="ui-icon-key">
@@ -51,6 +51,11 @@
                 <p:submenu icon="ui-icon-gear">
                     <p:menuitem value="Cidades" url="/locales/cidades/novaCidade.xhtml" />
                     <p:separator />
+                    <p:submenu label="Tipos" icon="ui-icon-gear">
+                        <p:menuitem value="Listar Cidades" url="/locales/cidades/lista.xhtml"  />
+                        <p:separator />
+                        <p:menuitem value="Modelo" url="/veiculo/modelos/novoModelo.xhtml" />
+                    </p:submenu>
                     <p:menuitem value="Estados" url="/locales/estados/novoEstado.xhtml" />
                 </p:submenu>
             </p:menubar>

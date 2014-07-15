@@ -20,7 +20,7 @@ import repository.GenericRepository;
 
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class MarcaController implements Serializable {
 
     private Marca marca;
