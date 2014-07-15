@@ -14,11 +14,11 @@ import javax.persistence.OneToMany;
 
 /**
  *
- * @author labin05
+ * @author gustavomrios
  */
 @Entity
 public class Marca implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -32,6 +32,31 @@ public class Marca implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (getId() != null ? getId().hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Marca)) {
+            return false;
+        }
+        Marca other = (Marca) object;
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Marca[ id=" + getId() + " ]";
     }
 
     /**
@@ -61,4 +86,5 @@ public class Marca implements Serializable {
     public void setModelos(List<Modelo> modelos) {
         this.modelos = modelos;
     }
+    
 }

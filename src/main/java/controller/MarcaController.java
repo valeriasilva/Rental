@@ -8,16 +8,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.el.ELContext;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import model.Marca;
 import repository.GenericRepository;
-
 
 @ManagedBean
 @SessionScoped
@@ -50,12 +50,14 @@ public class MarcaController implements Serializable {
         this.setMarca(new Marca());
         this.setMarcas((List<Class>) new ArrayList());
     }
-    
-     public static EntityManager getEntityManager() {
-        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
-        EntityManager entityManager = (EntityManager) FacesContext.getCurrentInstance().
-                getApplication().getELResolver().getValue(elContext, null, "entityManager");
-        return entityManager;
+
+    private EntityManager getEntityManager() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = fc.getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+        EntityManager manager = (EntityManager) request.getAttribute("entityManager");
+
+        return manager;
     }
 
     /**
@@ -83,11 +85,10 @@ public class MarcaController implements Serializable {
      * @return the marcas
      */
     public List<Class> getMarcas() {
-       
-            EntityManager manager = this.getEntityManager();
-            GenericRepository repository = new GenericRepository(manager);
-            this.marcas = repository.buscaTodos("Marca");
-        System.out.println(marcas.size()+" size");
-        return this.marcas;
+
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        this.marcas = repository.buscaTodos("Marca");
+        return marcas;
     }
 }
