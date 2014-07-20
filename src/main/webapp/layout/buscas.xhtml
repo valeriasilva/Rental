@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">                       
+    <h:body>      
+        <h:form> 
+            <p:panel>
+                <h:outputText value="Busca rápida"/><br/>
+                <h:outputText value="Cliente"/>
+                <h:selectOneMenu id="cliente" value="#{locacaoController.auxCliente}" style="width:200px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{clienteController.clientes}" var="cliente" itemLabel="#{cliente.nome} / cpf: #{cliente.cpf}" itemValue="#{cliente}"  />
+                </h:selectOneMenu><br/>
+                <p:commandButton value="Buscar" action="#{locacaoController.locacoesPeloCliente()}"/>
+            </p:panel>
+        </h:form>
+
+    </h:body>    
+</ui:composition>

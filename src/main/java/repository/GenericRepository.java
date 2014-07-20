@@ -4,7 +4,10 @@
  */
 package repository;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Locacao;
@@ -73,6 +76,19 @@ public class GenericRepository {
     public List<Locacao> buscaLocacoesFechado() {
 
         Query query = this.manager.createQuery(" select x from Locacao x where x.situacao like '%FECHADO%'");
+        List<Locacao> listResult = query.getResultList();
+        return listResult;
+    }
+
+    public List<Locacao> buscaLocacoesPeloCliente(Long id) {
+        Query query = this.manager.createQuery(" select x from Locacao x where x.cliente.id = " + id);
+        List<Locacao> listResult = query.getResultList();
+        return listResult;
+    }
+
+    public List<Locacao> buscaAvancada(Map p) {
+        
+        Query query = this.manager.createQuery(" select x from Locacao x where x.cliente.id = ");
         List<Locacao> listResult = query.getResultList();
         return listResult;
     }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                xmlns:f="http://xmlns.jcp.org/jsf/core">   
+
+    <!--mudanÃ§a!  -->
+    <ui:define name="title">
+        Lista de Locações
+    </ui:define>    
+
+    <ui:define name="conteudo">
+
+        <h:form id="formPrincipal">
+            <p:growl id="growl" showDetail="true" /> 
+
+
+            <p:dataTable  emptyMessage="Nenhum registro encontrado" var="lista" value="#{locacaoController.locacoesCliente}" id="tabelaClientes" widgetVar="locacaoTable">
+                <f:facet name="header">Lista de carros locados pelo Cliente</f:facet>
+
+                <p:column headerText="Data da Locação">
+                    <h:outputText value="#{lista.dataLocacao}" />
+                </p:column>
+                <p:column headerText="Desconto">
+                    <h:outputText value="#{lista.desconto}" />
+                </p:column>
+                <p:column headerText="Seguro">
+                    <h:outputText value="#{lista.seguro.nome}" />
+                </p:column>
+                <p:column headerText="Situacao">
+                    <h:outputText value="#{lista.situacao}" />
+                </p:column>
+                <p:column headerText="Valor">
+                    <h:outputText value="#{lista.valor}" />
+                </p:column>
+                <p:column headerText="Valor Total">
+                    <h:outputText value="#{lista.valorTotal}" />
+                </p:column>
+                <!--Aqui os dados são recuperados a partir dos metodos get da Classe -->
+                <p:column headerText="Cliente">
+                    <h:outputText value="#{lista.cliente.nome}" />
+                </p:column>
+                <p:column headerText="Funcionario">
+                    <h:outputText value="#{lista.funcionario.nome}" />
+                </p:column>
+                <p:column headerText="Veiculo"><!--Como pode haver vários veiculos do mesmo modelo, é bom mostrar a placa para diferenciá-los.-->
+                    <h:outputText value="#{lista.veiculo.placa} | #{lista.veiculo.modelo.nome}" />
+                </p:column>
+                <p:column headerText="Data da Devolução">
+                    <h:outputText value="#{lista.dataDevolucao}" />
+                </p:column>
+                <p:column headerText="Ações">
+                    <p:commandButton value="Fechar" rendered="#{lista.situacao == 'ANDAMENTO'}" title="Fechar" update=":formAlterar:Alterar" oncomplete="dialogAlterar.show()" immediate="true">
+                        <f:setPropertyActionListener target="#{locacaoController.locacao}" value="#{lista}" />
+                    </p:commandButton>
+                    <h:outputText value="Sem ações" rendered="#{lista.situacao == 'FECHADO'}"/>
+
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="formAlterar"> 
+            <p:dialog id="Alterar" header="Fechar Locação" widgetVar="dialogAlterar"  resizable="false" modal="false" showEffect="slide" width="500">           
+                <h:panelGrid columns="2" class="panelNovo">
+                    <h:outputText value="Fechar Locação ???"/>
+           
+                </h:panelGrid>
+                <p:commandButton value="Sim" action="#{locacaoController.alterar()}" update=":formPrincipal:tabelaClientes" oncomplete="dialogAlterar.hide()"/>
+                <p:commandButton value="Não" update=":formPrincipal:tabelaClientes" oncomplete="dialogAlterar.hide()"/>
+
+            </p:dialog>        
+        </h:form> 
+    </ui:define>
+</ui:composition>

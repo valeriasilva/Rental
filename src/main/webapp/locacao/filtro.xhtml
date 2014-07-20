@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                xmlns:f="http://xmlns.jcp.org/jsf/core">   
+
+    <!--mudanÃ§a!  -->
+    <ui:define name="title">
+        Filtro de Locações
+    </ui:define>    
+
+    <ui:define name="conteudo">
+
+        <h:form id="formPrincipal"> 
+            <h:panelGrid columns="2">
+                 <h:outputText value="Situação de Locação"/>
+                 <h:selectOneMenu id="situacao" value="#{locacaoController.auxSituacao}" style="width:200px;" >
+                    <f:selectItem itemLabel="Em andamento" itemValue="ANDAMENTO"/>
+                    <f:selectItem itemLabel="Fechado" itemValue="FECHADO"/>
+                </h:selectOneMenu>
+                
+                <h:outputText value="Cliente"/>
+                <h:selectOneMenu id="cliente" value="#{locacaoController.auxCliente}" style="width:200px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{clienteController.clientes}" var="cliente" itemLabel="#{cliente.nome} / cpf: #{cliente.cpf}" itemValue="#{cliente}"  />
+                </h:selectOneMenu>
+                
+                <h:outputText value="Funcionário"/>
+                <h:selectOneMenu id="funcionario" value="#{locacaoController.auxFuncionario}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{funcionarioController.funcionarios}" var="funcionario" itemLabel="#{funcionario.nome}" itemValue="#{funcionario}"  />
+                </h:selectOneMenu>
+                
+                <h:outputText value="Veiculo" />
+                <h:selectOneMenu  id="veiculo" value="#{locacaoController.auxVeiculo}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{veiculoController.veiculos}" var="carro" itemLabel="#{carro.modelo.nome} | placa: #{carro.placa}" itemValue="#{carro}"  />
+                </h:selectOneMenu>
+                <br/><br/> <br/><br/>
+                <p:commandButton value="Buscar" action="#{locacaoController.buscaAvancada()}"/>
+            </h:panelGrid>    
+        </h:form> 
+    </ui:define>
+</ui:composition>

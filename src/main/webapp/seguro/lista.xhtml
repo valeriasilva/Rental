@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                xmlns:f="http://xmlns.jcp.org/jsf/core">   
+
+    <!--mudança!  -->
+    <ui:define name="title">
+        Lista de Seguros
+    </ui:define>    
+
+    <ui:define name="conteudo">
+
+        <h:form id="formPrincipal">
+            <p:growl id="growl" showDetail="true" /> 
+
+
+            <p:dataTable  emptyMessage="Nenhum registro encontrado" var="lista" value="#{funcionarioController.funcionarios}" id="tabelaFuncionarios" widgetVar="funcionarioTable">
+                <f:facet name="header">Lista de Atendentes</f:facet>
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{lista.nome}" />
+                </p:column>
+                <p:column headerText="Telefone">
+                    <h:outputText value="#{lista.telefone}" />
+                </p:column>
+                <p:column headerText="Usuario">
+                    <h:outputText value="#{lista.usuario}" />
+                </p:column>
+                <p:column headerText="Senha">
+                    <h:outputText value="#{lista.senha}" />
+                </p:column>
+                
+
+                <p:column headerText="Ações">
+                    <p:commandButton value="Alterar" title="Alterar" update=":formAlterar:Alterar" oncomplete="dialogAlterar.show()" immediate="true">
+                        <f:setPropertyActionListener target="#{funcionarioController.funcionario}" value="#{lista}" />
+                    </p:commandButton>
+                    <p:commandButton value="Excluir" title="Excluir" action="#{funcionarioController.remover()}" update=":formPrincipal:tabelaFuncionarios">
+                        <f:setPropertyActionListener target="#{funcionarioController.funcionario}" value="#{lista}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="formAlterar"> 
+            <p:dialog id="Alterar" header="Alterar Funcionario" widgetVar="dialogAlterar"  resizable="false" modal="false" showEffect="slide" width="500">           
+                <h:panelGrid columns="2" class="panelNovo">
+                    <h:outputText value="Nome"/>
+                    <h:inputText required="true" requiredMessage="Informe o nome" value="#{funcionarioController.funcionario.nome}"/>
+                    <h:outputText value="Telefone"/>
+                    <h:inputText required="true" requiredMessage="Informe o telefone" value="#{funcionarioController.funcionario.telefone}"/>
+                    <h:outputText value="Usuario"/>
+                    <h:inputText required="true" requiredMessage="Informe o Usuario" value="#{funcionarioController.funcionario.usuario}"/>
+                    <h:outputText value="Senha"/>
+                    <h:inputText required="true" requiredMessage="Informe a Senha" value="#{funcionarioController.funcionario.senha}"/>
+                     
+                    
+                   
+
+                </h:panelGrid>
+                <p:commandButton value="Alterar" action="#{funcionarioController.alterar}" update=":formPrincipal:tabelaFuncionarios" oncomplete="dialogAlterar.hide()"/>
+            
+            </p:dialog>        
+        </h:form> 
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                xmlns:f="http://xmlns.jcp.org/jsf/core">   
+
+    <!--mudança!  -->
+    <ui:define name="title">
+        Lista de Modelo
+    </ui:define>    
+
+    <ui:define name="conteudo">
+
+        <h:form id="formPrincipal">
+            <p:growl id="growl" showDetail="true" /> 
+
+
+            <p:dataTable  emptyMessage="Nenhum registro encontrado" var="lista" value="#{modeloController.modelos}" id="tabelaModelos" widgetVar="modeloTable">
+                <f:facet name="header">Lista de Modelo</f:facet>
+
+                <p:column headerText="Modelo">
+                    <h:outputText value="#{lista.nome}" />
+                </p:column>
+                
+                
+                <p:column headerText="Ações">
+                    <p:commandButton value="Alterar" title="Alterar" update=":formAlterar:Alterar" oncomplete="dialogAlterar.show()" immediate="true">
+                        <f:setPropertyActionListener target="#{modeloController.modelo}" value="#{lista}" />
+                    </p:commandButton>
+                    <p:commandButton value="Excluir" title="Excluir" action="#{modeloController.remover()}" update=":formPrincipal:tabelaModelos">
+                        <f:setPropertyActionListener target="#{modeloController.modelo}" value="#{lista}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="formAlterar"> 
+            <p:dialog id="Alterar" header="Alterar Modelo" widgetVar="dialogAlterar"  resizable="false" modal="false" showEffect="slide" width="500">           
+                <h:panelGrid columns="2" class="panelNovo">
+                    <h:outputText value="Nome"/>
+                    <h:inputText required="true" requiredMessage="Informe o modelo" value="#{modeloController.modelo.nome}"/>
+                                        
+                    
+                    <!--<h:outputText value="Cidade"/>
+                    <h:selectOneMenu id="cidade" value="#{cidadeController.cidade.cidade}" style="width:250px;" converter="entityConverter"> 
+                        <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                        <f:selectItems value="#{cidadeController.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"  />
+                    </h:selectOneMenu>-->
+
+                </h:panelGrid>
+                <p:commandButton value="Alterar" action="#{modeloController.alterar}" update=":formPrincipal:tabelaModelos" oncomplete="dialogAlterar.hide()"/>
+            
+            </p:dialog>        
+        </h:form> 
+    </ui:define>
+</ui:composition>
