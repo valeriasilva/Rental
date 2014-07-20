@@ -10,10 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- *
- * @author labin05
- */
+
 @Entity
 public class Funcionario implements Serializable {
     @Id

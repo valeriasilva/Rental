@@ -10,16 +10,16 @@ import java.util.List;
 import javax.el.ELContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import model.Oficina;
-import model.Oficina;
+import model.Veiculo;
 import repository.GenericRepository;
 
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class OficinaController implements Serializable {
 
     private Oficina oficina;
@@ -72,18 +72,6 @@ public class OficinaController implements Serializable {
     }
 
     /**
-     * @return the oficinas
-     */
-    public List<Class> allOficinas() {
-        if (this.getOficinas() == null) {
-            EntityManager manager = this.getEntityManager();
-            GenericRepository repository = new GenericRepository(manager);
-            this.setOficinas(repository.buscaTodos("Oficina"));
-        }
-        return this.getOficinas();
-    }
-
-    /**
      * @param oficinas the oficinas to set
      */
     public void setOficinas(List<Class> oficinas) {
@@ -94,6 +82,9 @@ public class OficinaController implements Serializable {
      * @return the oficinas
      */
     public List<Class> getOficinas() {
-        return oficinas;
+            EntityManager manager = this.getEntityManager();
+            GenericRepository repository = new GenericRepository(manager);
+            this.setOficinas(repository.buscaTodos("Oficina"));
+        return this.oficinas;
     }
 }

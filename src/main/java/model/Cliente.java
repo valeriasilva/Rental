@@ -9,16 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/**
- *
- * @author labin05
- */
+
 @Entity
 public class Cliente implements Serializable {
-    
+
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String nome;
     private String telefone;
     private String cpf;
@@ -26,11 +23,37 @@ public class Cliente implements Serializable {
     private Cidade cidade;
     private String cnh;
 
-    /**
-     * @return the id
-     */
-    public long getId() {
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (getId() != null ? getId().hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Cliente)) {
+            return false;
+        }
+        Cliente other = (Cliente) object;
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Cliente[ id=" + getId() + " ]";
     }
 
     /**
@@ -90,13 +113,6 @@ public class Cliente implements Serializable {
     }
 
     /**
-     * @param id the id to set
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    /**
      * @return the cidade
      */
     public Cidade getCidade() {
@@ -123,6 +139,4 @@ public class Cliente implements Serializable {
     public void setCnh(String cnh) {
         this.cnh = cnh;
     }
-
-  
 }

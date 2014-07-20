@@ -26,7 +26,7 @@ and open the template in the editor.
                 <h:outputText value="Telefone"/>
                 <h:inputText required="true" requiredMessage="Informe o telefone" value="#{oficinaController.oficina.telefone}"/>
                 <h:outputText value="Cidade"/>
-                 <h:selectOneMenu id="cidade" value="#{oficinaController.oficina.cidade}" style="width:250px;" converter="entityConverter"> 
+                <h:selectOneMenu id="cidade" value="#{oficinaController.oficina.cidade}" style="width:250px;" converter="entityConverter"> 
                     <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
                     <f:selectItems value="#{cidadeController.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"  />
                 </h:selectOneMenu>

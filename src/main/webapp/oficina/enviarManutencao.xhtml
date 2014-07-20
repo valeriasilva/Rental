@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">   
+
+    <!--mudança!  -->
+    <ui:define name="title">
+        Manutenção
+    </ui:define>    
+
+    <ui:define name="conteudo">
+        <h:outputText value="Enviar para Manutenção" class="tituloCentro" />
+        <h:form>
+            <p:growl id="growl" showDetail="true" />  
+            <h:panelGrid  class="panelNovo">
+                <h:outputText value="Veiculo" rendered="#{manutencaoController.manutencao.veiculo == null}"/>
+                <h:selectOneMenu required="true" requiredMessage="Selecione o veiculo" rendered="#{manutencaoController.manutencao.veiculo == null}" id="veiculo" value="#{manutencaoController.manutencao.veiculo}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{veiculoController.veiculos}" var="carro" itemLabel="#{carro.modelo.nome} | placa: #{carro.placa}" itemValue="#{carro}"  />
+                </h:selectOneMenu>
+                <h:outputText rendered="#{manutencaoController.manutencao.veiculo != null}" value="Carro: #{manutencaoController.manutencao.veiculo.modelo.nome} / Placa: #{manutencaoController.manutencao.veiculo.placa}"/>
+                <br/>       
+                <br/>   
+
+                <h:outputText value="Oficina"/>
+                <h:selectOneMenu id="oficina" value="#{manutencaoController.manutencao.oficina}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{oficinaController.oficinas}" var="oficina" itemLabel="#{oficina.nome}" itemValue="#{oficina}"  />
+                </h:selectOneMenu><br/>
+                
+                <h:outputText value="Observações"/>
+                <p:inputTextarea cols="40" value="#{manutencaoController.manutencao.observacoes}"/><br/>
+
+                <h:commandButton value="Enviar para manutenção" action="#{manutencaoController.salvar()}"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

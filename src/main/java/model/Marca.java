@@ -12,10 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-/**
- *
- * @author gustavomrios
- */
 @Entity
 public class Marca implements Serializable {
     

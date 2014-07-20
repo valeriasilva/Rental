@@ -4,10 +4,7 @@
  */
 package util;
 
-/**
- *
- * @author Thales 
- */
+
 public interface BaseEntity {
     public Long getId(); 
 }

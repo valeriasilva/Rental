@@ -10,7 +10,48 @@
         <title>Locadora</title>
     </head>
     <body>
-        <h:outputLabel value="Locadora" />
-        
+        <!--mudança!  -->
+        <ui:define name="title">
+            Página inicial
+        </ui:define>    
+
+        <ui:define name="conteudo">
+
+            <h:form id="form">
+                <p:dataGrid var="car" value="#{veiculoController.veiculos}" columns="3"
+                            rows="12" paginator="true" id="cars"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="6,12,16">
+
+                    <f:facet name="header">
+                        Veiculos
+                    </f:facet>
+
+                    <p:panel style="text-align:center">
+                        <h:panelGrid columns="2" style="width:100%">
+                        
+                            <h:outputText style="font-size: 16pt" value="#{car.modelo.nome}" /><br/>
+                            <h:outputText value="Placa: #{car.placa}" />
+                            <h:outputText value="Renavam: #{car.renavam}" />
+
+                                 <p:separator/><p:separator/>           
+
+                            <p:commandButton rendered="#{veiculoController.verificaSituacao(car)}" value="Locar" action="#{locacaoController.limpar()}" title="Locação">
+                                <f:setPropertyActionListener value="#{car}" target="#{locacaoController.auxVeiculo}" />
+                            </p:commandButton>
+                            <p:commandButton rendered="#{veiculoController.verificaSituacao(car)}" value="Manutenção" actionListener="#{manutencaoController.limpar()}" title="Manutençåo">
+                                <f:setPropertyActionListener value="#{car}" target="#{manutencaoController.manutencao.veiculo}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton disabled="true" rendered="#{!veiculoController.verificaSituacao(car)}" value="Locar" title="Este veículo está indisponível">
+                            </p:commandButton>
+                            <p:commandButton disabled="true"  rendered="#{!veiculoController.verificaSituacao(car)}" value="Manutenção" title="Este veiculo está indisponível">
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:dataGrid>
+
+            </h:form>
+        </ui:define>
     </body>
 </ui:composition>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                xmlns:f="http://xmlns.jcp.org/jsf/core">   
+
+    <!--mudança!  -->
+    <ui:define name="title">
+        Locação
+    </ui:define>    
+
+    <ui:define name="conteudo">
+        <h:outputText value="Nova Locação" class="tituloCentro" />
+        <h:form id="form_Locacao">
+            <p:growl id="growl" showDetail="true" />  
+            <h:panelGrid  class="panelNovo">
+                <h:outputText value="Veiculo" rendered="#{locacaoController.auxVeiculo == null}"/>
+                <h:selectOneMenu required="true" requiredMessage="Selecione o veiculo" rendered="#{locacaoController.auxVeiculo == null}" id="veiculo" value="#{locacaoController.auxVeiculo}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{veiculoController.veiculos}" var="carro" itemLabel="#{carro.modelo.nome} | placa: #{carro.placa}" itemValue="#{carro}"  />
+                </h:selectOneMenu>
+                <h:outputText rendered="#{locacaoController.auxVeiculo != null}" value="Carro: #{locacaoController.auxVeiculo.modelo.nome} / Placa: #{locacaoController.auxVeiculo.placa}"/>
+                <br/>       
+                <br/>   
+
+                <h:outputText value="Valor"/>
+                <p:inputText required="true" size="10" requiredMessage="Informe o valor" value="#{locacaoController.locacao.valor}"/><br/>
+                <h:outputText value="Desconto em %"/>
+                <p:inputText size="10" required="true" requiredMessage="Informe o desconto" id="desconto" value="#{locacaoController.locacao.desconto}"/>
+                <p:commandButton style="width: 70px; height: 30px; font-size: 9pt;" value="Calcular" actionListener="#{locacaoController.calcularValorFinal()}" update="valorFinal"/>
+
+                <h:outputText id="valorFinal" value="Valor total: #{locacaoController.locacao.valorTotal}"/>
+                <br/><br/>
+                <h:outputText value="Cliente"/>
+                <h:selectOneMenu id="cliente" value="#{locacaoController.locacao.cliente}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{clienteController.clientes}" var="cliente" itemLabel="#{cliente.nome} / cpf: #{cliente.cpf}" itemValue="#{cliente}"  />
+                </h:selectOneMenu><br/>
+
+                <h:outputText value="Funcionário"/>
+                <h:selectOneMenu id="funcionario" value="#{locacaoController.locacao.funcionario}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{funcionarioController.funcionarios}" var="funcionario" itemLabel="#{funcionario.nome}" itemValue="#{funcionario}"  />
+                </h:selectOneMenu><br/>
+
+                <h:commandButton value="Locar" action="#{locacaoController.salvar()}"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

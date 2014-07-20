@@ -42,12 +42,17 @@
                     <p:menuitem value="Lista" url="#" />
                 </p:submenu>
 
-                <p:submenu label="Locacoes" icon="ui-icon-cart">
-                    <p:menuitem value="Novo" url="#" />
+                <p:submenu label="Manutenções" icon="ui-icon-wrench">
+                    <p:menuitem action="#{manutencaoController.limpar()}" value="Mandar para manutenção" />
                     <p:separator />
                     <p:menuitem value="Lista" url="#" />
                 </p:submenu>
                 
+                 <p:submenu label="Locações" icon="ui-icon-cart">
+                    <p:menuitem action="#{locacaoController.newAux()}" value="Novo" />
+                    <p:separator />
+                    <p:menuitem value="Lista" url="#" />
+                </p:submenu>
                 <p:submenu icon="ui-icon-gear">
                     <p:menuitem value="Cidades" url="/locales/cidades/novaCidade.xhtml" />
                     <p:separator />

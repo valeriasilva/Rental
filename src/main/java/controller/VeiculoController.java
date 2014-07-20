@@ -15,8 +15,11 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import model.Locacao;
+import model.Manutencao;
 import model.Veiculo;
 import repository.GenericRepository;
 
@@ -27,6 +30,10 @@ public class VeiculoController implements Serializable {
     private Veiculo veiculo;
     private List<Class> veiculos;
     private List<Class> modelosFiltrados;
+    @Inject
+    private ManutencaoController manutencaoController;
+    @Inject
+    private LocacaoController locacaoController;
 
     /**
      * Creates a new instance of VeiculoController
@@ -59,12 +66,44 @@ public class VeiculoController implements Serializable {
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
         try {
-            this.modelosFiltrados = (repository.listModelosByMarca(this.veiculo.getMarca().getId()));
+            this.setModelosFiltrados(repository.listModelosByMarca(this.getVeiculo().getMarca().getId()));
 
         } catch (Exception e) {
             System.out.println("Exception " + e);
         }
-        return this.modelosFiltrados;
+        return this.getModelosFiltrados();
+    }
+
+    public List<Veiculo> veiculosIndisponiveis() {
+        List<Veiculo> veiculosVinculados = new ArrayList();
+        List<Locacao> locacoesAndamento = new ArrayList();
+        locacoesAndamento = this.locacaoController.locacoesAndamento();
+        List<Manutencao> manutencoesAndamento = new ArrayList();
+        manutencoesAndamento = this.manutencaoController.manutencoesAndamento();
+
+        if (locacoesAndamento != null) {
+            for (Locacao locacao : locacoesAndamento) {
+                veiculosVinculados.add(locacao.getVeiculo());
+            }
+        } if(manutencoesAndamento != null){
+            for(Manutencao manu : manutencoesAndamento){
+                veiculosVinculados.add(manu.getVeiculo());
+                System.out.println("Manuu "+manu.getVeiculo().getPlaca());
+            }
+        }
+        
+        System.out.println("lo, man: "+ locacoesAndamento.size()+", "+ manutencoesAndamento.size());
+
+        return veiculosVinculados;
+
+    }
+    
+    public boolean verificaSituacao(Veiculo v){
+        List<Veiculo> listaV = this.veiculosIndisponiveis();
+        if(listaV.contains(v)){
+            return false;
+        }else
+        return true;
     }
 
     /**
@@ -81,19 +120,7 @@ public class VeiculoController implements Serializable {
         this.veiculo = veiculo;
     }
 
-    /**
-     * @return the veiculos
-     */
-    public List<Class> allVeiculos() {
-        if (this.getVeiculos() == null) {
-            EntityManager manager = this.getEntityManager();
-            GenericRepository repository = new GenericRepository(manager);
-            this.setVeiculos(repository.buscaTodos("Veiculo"));
-        }
-        return this.getVeiculos();
-    }
-    
-     private EntityManager getEntityManager() {
+    private EntityManager getEntityManager() {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) ec.getRequest();
@@ -113,7 +140,12 @@ public class VeiculoController implements Serializable {
      * @return the veiculos
      */
     public List<Class> getVeiculos() {
-        return veiculos;
+
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        this.setVeiculos(repository.buscaTodos("Veiculo"));
+
+        return this.veiculos;
     }
 
     /**
@@ -128,5 +160,33 @@ public class VeiculoController implements Serializable {
      */
     public void setModelosFiltrados(List<Class> modelosFiltrados) {
         this.modelosFiltrados = modelosFiltrados;
+    }
+
+    /**
+     * @return the manutencaoController
+     */
+    public ManutencaoController getManutencaoController() {
+        return manutencaoController;
+    }
+
+    /**
+     * @param manutencaoController the manutencaoController to set
+     */
+    public void setManutencaoController(ManutencaoController manutencaoController) {
+        this.manutencaoController = manutencaoController;
+    }
+
+    /**
+     * @return the locacaoController
+     */
+    public LocacaoController getLocacaoController() {
+        return locacaoController;
+    }
+
+    /**
+     * @param locacaoController the locacaoController to set
+     */
+    public void setLocacaoController(LocacaoController locacaoController) {
+        this.locacaoController = locacaoController;
     }
 }
