@@ -34,6 +34,10 @@
                         <p:separator />
                         <p:menuitem value="Modelo" url="/veiculo/modelos/novoModelo.xhtml" />
                     </p:submenu>
+                    <p:submenu label="Filtros" >
+                        <p:menuitem  value="Veiculos por modelo" url="/veiculo/filtraPorModelo.xhtml" />
+                        <p:menuitem  value="Veiculos por motorização" />
+                    </p:submenu>
                 </p:submenu>
 
                 <p:submenu label="Oficinas" icon="ui-icon-wrench">
@@ -43,19 +47,27 @@
                 </p:submenu>
 
                 <p:submenu label="Manutenções" icon="ui-icon-wrench">
-                    <p:menuitem action="#{manutencaoController.limpar()}" value="Mandar para manutenÃ§Ã£o" />
+                    <p:menuitem action="#{manutencaoController.limpar()}" value="Mandar para manutenção" />
                     <p:separator />
-                    <p:menuitem value="Lista" url="#" />
+                    <p:menuitem value="Listar Manutenção" url="/oficina/listaManutencao.xhtml" />
+                    <p:submenu label="Filtros" >
+                        <p:menuitem  value="Locações por Situação" />
+                    </p:submenu>
                 </p:submenu>
-                
-                 <p:submenu label="Locações" icon="ui-icon-cart">
+
+                <p:submenu label="Locações" icon="ui-icon-cart">
                     <p:menuitem action="#{locacaoController.newAux()}" value="Novo" />
                     <p:separator />
                     <p:menuitem value="Lista" url="/locacao/lista.xhtml" />
-                    <p:menuitem value="Filtros" url="/locacao/filtro.xhtml" />
+                    <p:separator />
+                    <p:submenu label="Filtros" >
+                        <p:menuitem  value="Locações por Situação" />
+                        <p:menuitem  value="Locações por Veiculo" />
+                        <p:menuitem  value="Locações por Funcionario" />
+                    </p:submenu>
                 </p:submenu>
-                
-                
+
+
                 <p:submenu icon="ui-icon-gear">
                     <p:menuitem value="Cidades" url="/locales/cidades/novaCidade.xhtml" />
                     <p:separator />

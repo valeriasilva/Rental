@@ -4,6 +4,7 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class VeiculoController implements Serializable {
     private ManutencaoController manutencaoController;
     @Inject
     private LocacaoController locacaoController;
+    private List<Veiculo> veiculosBuscados;
 
     /**
      * Creates a new instance of VeiculoController
@@ -77,33 +79,35 @@ public class VeiculoController implements Serializable {
     public List<Veiculo> veiculosIndisponiveis() {
         List<Veiculo> veiculosVinculados = new ArrayList();
         List<Locacao> locacoesAndamento = new ArrayList();
-        locacoesAndamento = this.locacaoController.locacoesAndamento();
+        locacoesAndamento = this.getLocacaoController().locacoesAndamento();
         List<Manutencao> manutencoesAndamento = new ArrayList();
-        manutencoesAndamento = this.manutencaoController.manutencoesAndamento();
+        manutencoesAndamento = this.getManutencaoController().manutencoesAndamento();
 
         if (locacoesAndamento != null) {
             for (Locacao locacao : locacoesAndamento) {
                 veiculosVinculados.add(locacao.getVeiculo());
             }
-        } if(manutencoesAndamento != null){
-            for(Manutencao manu : manutencoesAndamento){
+        }
+        if (manutencoesAndamento != null) {
+            for (Manutencao manu : manutencoesAndamento) {
                 veiculosVinculados.add(manu.getVeiculo());
-                System.out.println("Manuu "+manu.getVeiculo().getPlaca());
+                System.out.println("Manuu " + manu.getVeiculo().getPlaca());
             }
         }
-        
-        System.out.println("lo, man: "+ locacoesAndamento.size()+", "+ manutencoesAndamento.size());
+
+        System.out.println("lo, man: " + locacoesAndamento.size() + ", " + manutencoesAndamento.size());
 
         return veiculosVinculados;
 
     }
-    
-    public boolean verificaSituacao(Veiculo v){
+
+    public boolean verificaSituacao(Veiculo v) {
         List<Veiculo> listaV = this.veiculosIndisponiveis();
-        if(listaV.contains(v)){
+        if (listaV.contains(v)) {
             return false;
-        }else
-        return true;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -148,6 +152,15 @@ public class VeiculoController implements Serializable {
         return this.veiculos;
     }
 
+    public void buscaPorModelo() throws IOException {
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        this.setVeiculosBuscados(repository.buscaPorModelo(this.getVeiculo().getModelo().getId()));
+
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/Rental/veiculo/listaBuscas.xhtml");
+
+    }
+
     /**
      * @return the modelosFiltrados
      */
@@ -188,5 +201,19 @@ public class VeiculoController implements Serializable {
      */
     public void setLocacaoController(LocacaoController locacaoController) {
         this.locacaoController = locacaoController;
+    }
+
+    /**
+     * @return the veiculosBuscados
+     */
+    public List<Veiculo> getVeiculosBuscados() {
+        return veiculosBuscados;
+    }
+
+    /**
+     * @param veiculosBuscados the veiculosBuscados to set
+     */
+    public void setVeiculosBuscados(List<Veiculo> veiculosBuscados) {
+        this.veiculosBuscados = veiculosBuscados;
     }
 }

@@ -20,7 +20,6 @@ import model.Marca;
 import model.Modelo;
 import repository.GenericRepository;
 
-
 @ManagedBean
 @SessionScoped
 public class ModeloController implements Serializable {
@@ -53,8 +52,8 @@ public class ModeloController implements Serializable {
         this.setModelo(new Modelo());
         this.setModelos((List<Class>) new ArrayList());
     }
-    
-     private EntityManager getEntityManager() {
+
+    private EntityManager getEntityManager() {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) ec.getRequest();
@@ -62,6 +61,7 @@ public class ModeloController implements Serializable {
 
         return manager;
     }
+
     /**
      * @return the modelo
      */
@@ -79,15 +79,6 @@ public class ModeloController implements Serializable {
     /**
      * @return the modelos
      */
-    public List<Class> allModelos() {
-        if (this.getModelos() == null) {
-            EntityManager manager = this.getEntityManager();
-            GenericRepository repository = new GenericRepository(manager);
-            this.setModelos(repository.buscaTodos("Modelo"));
-        }
-        return this.getModelos();
-    }
-
     /**
      * @param modelos the modelos to set
      */
@@ -99,6 +90,12 @@ public class ModeloController implements Serializable {
      * @return the modelos
      */
     public List<Class> getModelos() {
-        return modelos;
+
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        this.setModelos(repository.buscaTodos("Modelo"));
+        
+        return this.modelos;
+
     }
 }

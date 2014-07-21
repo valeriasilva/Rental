@@ -57,7 +57,7 @@ and open the template in the editor.
                     <h:outputText value="#{lista.dataDevolucao}" />
                 </p:column>
                 <p:column headerText="Ações">
-                    <p:commandButton value="Fechar" rendered="#{lista.situacao == 'ANDAMENTO'}" title="Fechar" update=":formAlterar:Alterar" oncomplete="dialogAlterar.show()" immediate="true">
+                    <p:commandButton value="Devolução" rendered="#{lista.situacao == 'ANDAMENTO'}" title="Fechar" update=":formAlterar:Alterar" oncomplete="dialogAlterar.show()" immediate="true">
                         <f:setPropertyActionListener target="#{locacaoController.locacao}" value="#{lista}" />
                     </p:commandButton>
                     <h:outputText value="Sem ações" rendered="#{lista.situacao == 'FECHADO'}"/>
@@ -69,7 +69,7 @@ and open the template in the editor.
         <h:form id="formAlterar"> 
             <p:dialog id="Alterar" header="Fechar Locação" widgetVar="dialogAlterar"  resizable="false" modal="false" showEffect="slide" width="500">           
                 <h:panelGrid columns="2" class="panelNovo">
-                    <h:outputText value="Fechar Locação ???"/>
+                    <h:outputText value="Tem certeza que deseja fechar a locação ?"/>
            
                 </h:panelGrid>
                 <p:commandButton value="Sim" action="#{locacaoController.alterar()}" update=":formPrincipal:tabelaClientes" oncomplete="dialogAlterar.hide()"/>

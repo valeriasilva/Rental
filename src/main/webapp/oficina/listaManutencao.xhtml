@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                xmlns:f="http://xmlns.jcp.org/jsf/core">   
+
+    <!--mudanÃ§a!  -->
+    <ui:define name="title">
+        Lista de Manutenção
+    </ui:define>    
+
+    <ui:define name="conteudo">
+
+        <h:form id="formPrincipal">
+            <p:growl id="growl" showDetail="true" /> 
+
+
+            <p:dataTable  emptyMessage="Nenhum registro encontrado" var="lista" value="#{manutencaoController.manutencoes}" id="tabelaManutencao" widgetVar="manutencaoTable">
+                <f:facet name="header">Lista de carros na manutenção</f:facet>
+
+                <p:column headerText="Data de Entrada">
+                    <h:outputText value="#{lista.dataEntrada}" />
+                </p:column>
+                <p:column headerText="Data de Saída">
+                    <h:outputText value="#{lista.dataSaida}" />
+                </p:column>
+                   <p:column headerText="Observações">
+                    <h:outputText value="#{lista.observacoes}" />
+                </p:column>
+                <p:column headerText="Veículo">
+                    <h:outputText value="#{lista.veiculo.modelo.nome} | #{lista.veiculo.placa}" />
+                </p:column>
+                 <p:column headerText="Oficina">
+                    <h:outputText value="#{lista.oficina.nome}" />
+                </p:column>
+                <p:column headerText="Valor">
+                    <h:outputText value="#{lista.valor}" />
+                </p:column>
+                <p:column headerText="Situacao">
+                    <h:outputText value="#{lista.situacao}" />
+                </p:column>
+
+                <p:column headerText="Ações">
+                    <p:commandButton value="Devolução" rendered="#{lista.situacao == 'ANDAMENTO'}" title="Fechar" update=":formAlterar:Alterar" oncomplete="dialogAlterar.show()" immediate="true">
+                        <f:setPropertyActionListener target="#{manutencaoController.manutencao}" value="#{lista}" />
+                    </p:commandButton>
+                    <h:outputText value="Sem ações" rendered="#{lista.situacao == 'FECHADO'}"/>
+
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="formAlterar"> 
+            <p:dialog id="Alterar" header="Baixa em manutenção" widgetVar="dialogAlterar"  resizable="false" modal="false" showEffect="slide" width="520">           
+                <h:panelGrid >
+                    <h:outputText value="Tem certeza que deseja dar baixa na manutenção ?"/><br/>
+                      <h:outputText value="Se sim, preencha o valor da manutenção:"/>
+                      <p:watermark for="valor_man" value="Quanto foi a manutenção?"/>
+                      <p:inputText value="#{manutencaoController.manutencao.valor}" id="valor_man"/><br/><br/><br/>
+                </h:panelGrid>
+                <p:commandButton value="Sim" action="#{manutencaoController.alterar()}" update=":formPrincipal:tabelaManutencao" oncomplete="dialogAlterar.hide()"/>
+                <p:commandButton value="Não" update=":formPrincipal:tabelaManutencao" oncomplete="dialogAlterar.hide()"/>
+
+            </p:dialog>        
+        </h:form> 
+    </ui:define>
+</ui:composition>

@@ -176,27 +176,7 @@ public class LocacaoController implements Serializable {
         return this.locacoes;
     }
 
-    public void buscaAvancada() {
-        Map<String, String> map = new HashMap<String, String>();
 
-        EntityManager manager = this.getEntityManager();
-        GenericRepository repository = new GenericRepository(manager);
-        
-        if (this.getAuxCliente() != null) {
-            map.put("cliente", getAuxCliente().getId().toString());
-        }
-        if (this.getAuxFuncionario() != null) {
-            map.put("funcionario", getAuxFuncionario().getId().toString());
-        }
-        if (this.getAuxVeiculo() != null) {
-            map.put("veiculo", getAuxVeiculo().getId().toString());
-        }
-        if (this.getAuxSituacao() != null) {
-            map.put("situacao", getAuxSituacao());
-        }
-
-        this.setLocacoesAux(repository.buscaAvancada(map));
-    }
 
     /**
      * @return the auxVeiculo

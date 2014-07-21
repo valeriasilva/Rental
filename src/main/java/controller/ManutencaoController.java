@@ -80,13 +80,23 @@ public class ManutencaoController implements Serializable {
         GenericRepository repository = new GenericRepository(manager);
         return repository.buscaManutencoesFechado();      
     }
-
     public void alterar() {
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        //Definimos aqui a data de Devolução
+        this.getManutencao().setDataSaida(new Date());
+        //Mudamos a situação para FECHADO
+        this.getManutencao().setSituacao(SituacaoType.FECHADO);
+
+        repository.update(this.getManutencao());
+        this.setManutencao(new Manutencao());
+    }
+   /* public void alterar() {
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
         repository.update(this.getManutencao());
         this.setManutencao(new Manutencao());
-    }
+    }*/
 
     public void remover() {
         EntityManager manager = this.getEntityManager();

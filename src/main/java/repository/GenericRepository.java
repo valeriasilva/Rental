@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Locacao;
 import model.Manutencao;
+import model.Veiculo;
 
 public class GenericRepository {
 
@@ -86,10 +87,10 @@ public class GenericRepository {
         return listResult;
     }
 
-    public List<Locacao> buscaAvancada(Map p) {
-        
-        Query query = this.manager.createQuery(" select x from Locacao x where x.cliente.id = ");
-        List<Locacao> listResult = query.getResultList();
+
+    public List<Veiculo> buscaPorModelo(Long id) {
+        Query query = this.manager.createQuery(" select x from Veiculo x where x.modelo.id = " + id);
+        List<Veiculo> listResult = query.getResultList();
         return listResult;
     }
 }
