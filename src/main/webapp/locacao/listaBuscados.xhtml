@@ -22,7 +22,7 @@ and open the template in the editor.
             <p:growl id="growl" showDetail="true" /> 
 
 
-            <p:dataTable  emptyMessage="Nenhum registro encontrado" var="lista" value="#{locacaoController.locacoesCliente}" id="tabelaClientes" widgetVar="locacaoTable">
+            <p:dataTable  emptyMessage="Nenhum registro encontrado" var="lista" value="#{locacaoController.locacoesBuscadas}" id="tabelaClientes" widgetVar="locacaoTable">
                 <f:facet name="header">Lista de carros locados pelo Cliente</f:facet>
 
                 <p:column headerText="Data da Locação">

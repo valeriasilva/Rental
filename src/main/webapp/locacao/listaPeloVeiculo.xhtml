@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">   
+
+    <!--mudanÃ§a!  -->
+    <ui:define name="title">
+        Lista de Locações
+    </ui:define>    
+
+    <ui:define name="conteudo">
+        <h:form id="formPrincipal"> 
+            <h:panelGrid columns="2">
+                <h:outputText value="Veiculo" />
+                <h:selectOneMenu required="true" requiredMessage="Selecione o veiculo" id="veiculo" value="#{locacaoController.auxVeiculo}" style="width:250px;" converter="entityConverter"> 
+                    <f:selectItem itemLabel=" - Selecionar - " itemValue=""/>
+                    <f:selectItems value="#{veiculoController.veiculos}" var="carro" itemLabel="#{carro.modelo.nome} | placa: #{carro.placa}" itemValue="#{carro}"  />
+                </h:selectOneMenu>
+
+                <br/><br/> <br/><br/>
+                <p:commandButton value="Buscar" action="#{locacaoController.buscaPorVeiculo()}"/>
+            </h:panelGrid>    
+        </h:form>
+    </ui:define>
+</ui:composition>

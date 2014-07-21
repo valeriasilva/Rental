@@ -87,10 +87,33 @@ public class GenericRepository {
         return listResult;
     }
 
-
     public List<Veiculo> buscaPorModelo(Long id) {
         Query query = this.manager.createQuery(" select x from Veiculo x where x.modelo.id = " + id);
         List<Veiculo> listResult = query.getResultList();
+        return listResult;
+    }
+
+    public List<Manutencao> manutencaoPorSituacao(String auxSituacao) {
+        Query query = this.manager.createQuery(" select x from Manutencao x where x.situacao like '%" + auxSituacao + "%'");
+        List<Manutencao> listResult = query.getResultList();
+        return listResult;
+    }
+
+    public List<Locacao> locacaoPorSituacao(String auxSituacao) {
+        Query query = this.manager.createQuery(" select x from Locacao x where x.situacao like '%" + auxSituacao + "%'");
+        List<Locacao> listResult = query.getResultList();
+        return listResult;
+    }
+
+    public List<Locacao> locacaoPorFuncionario(Long id) {
+        Query query = this.manager.createQuery(" select x from Locacao x where x.funcionario.id = " + id);
+        List<Locacao> listResult = query.getResultList();
+        return listResult;
+    }
+
+    public List<Locacao> locacaoPorVeiculo(Long id) {
+        Query query = this.manager.createQuery(" select x from Locacao x where x.veiculo.id = " + id);
+        List<Locacao> listResult = query.getResultList();
         return listResult;
     }
 }

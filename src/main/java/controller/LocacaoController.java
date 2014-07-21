@@ -32,7 +32,7 @@ public class LocacaoController implements Serializable {
     private List<Class> locacoes;
     private Veiculo auxVeiculo;
     private Cliente auxCliente;
-    private List<Locacao> locacoesCliente;
+    private List<Locacao> locacoesBuscadas;
     private String auxSituacao = "";
     private Funcionario auxFuncionario = null;
     private List<Locacao> locacoesAux;
@@ -135,9 +135,9 @@ public class LocacaoController implements Serializable {
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
 
-        this.setLocacoesCliente(repository.buscaLocacoesPeloCliente(this.getAuxCliente().getId()));
+        this.setLocacoesBuscadas(repository.buscaLocacoesPeloCliente(this.getAuxCliente().getId()));
 
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/Rental/locacao/listaPeloCliente.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/Rental/locacao/listaBuscados.xhtml");
     }
 
     /**
@@ -176,7 +176,31 @@ public class LocacaoController implements Serializable {
         return this.locacoes;
     }
 
+    public void listaPorSituacao() throws IOException {
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        this.setLocacoesBuscadas(repository.locacaoPorSituacao(this.getAuxSituacao()));
 
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/Rental/locacao/listaBuscados.xhtml");
+
+    }
+
+    public void buscaPorFuncionario() throws IOException {
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        this.setLocacoesBuscadas(repository.locacaoPorFuncionario(this.auxFuncionario.getId()));
+
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/Rental/locacao/listaBuscados.xhtml");
+
+    }
+
+    public void buscaPorVeiculo() throws IOException {
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        this.setLocacoesBuscadas(repository.locacaoPorVeiculo(this.auxVeiculo.getId()));
+
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/Rental/locacao/listaBuscados.xhtml");
+    }
 
     /**
      * @return the auxVeiculo
@@ -204,20 +228,6 @@ public class LocacaoController implements Serializable {
      */
     public void setAuxCliente(Cliente auxCliente) {
         this.auxCliente = auxCliente;
-    }
-
-    /**
-     * @return the locacoesCliente
-     */
-    public List<Locacao> getLocacoesCliente() {
-        return locacoesCliente;
-    }
-
-    /**
-     * @param locacoesCliente the locacoesCliente to set
-     */
-    public void setLocacoesCliente(List<Locacao> locacoesCliente) {
-        this.locacoesCliente = locacoesCliente;
     }
 
     /**
@@ -260,5 +270,19 @@ public class LocacaoController implements Serializable {
      */
     public void setLocacoesAux(List<Locacao> locacoesAux) {
         this.locacoesAux = locacoesAux;
+    }
+
+    /**
+     * @return the locacoesBuscadas
+     */
+    public List<Locacao> getLocacoesBuscadas() {
+        return locacoesBuscadas;
+    }
+
+    /**
+     * @param locacoesBuscadas the locacoesBuscadas to set
+     */
+    public void setLocacoesBuscadas(List<Locacao> locacoesBuscadas) {
+        this.locacoesBuscadas = locacoesBuscadas;
     }
 }

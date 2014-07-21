@@ -27,6 +27,8 @@ public class ManutencaoController implements Serializable {
     private Manutencao manutencao;
     private List<Class> manutencoes;
     private Veiculo auxVeiculo;
+    private String auxSituacao;
+    private List<Manutencao> auxManutencoes;
 
     /**
      * Creates a new instance of ManutencaoController
@@ -42,7 +44,7 @@ public class ManutencaoController implements Serializable {
     }
 
     public void newAux() throws IOException {
-        this.auxVeiculo = null;
+        this.setAuxVeiculo(null);
         FacesContext.getCurrentInstance().getExternalContext().redirect("/Rental/manutencao/novo.xhtml");
     }
 
@@ -66,20 +68,21 @@ public class ManutencaoController implements Serializable {
 
         this.setManutencao(new Manutencao());
         this.setManutencoes((List<Class>) new ArrayList());
-        this.auxVeiculo = null;
+        this.setAuxVeiculo(null);
     }
-    
-    public List<Manutencao> manutencoesAndamento(){
+
+    public List<Manutencao> manutencoesAndamento() {
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
-        return repository.buscaManutencoesAndamento();     
+        return repository.buscaManutencoesAndamento();
     }
-    
-    public List<Manutencao> manutencoesFechadas(){
+
+    public List<Manutencao> manutencoesFechadas() {
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
-        return repository.buscaManutencoesFechado();      
+        return repository.buscaManutencoesFechado();
     }
+
     public void alterar() {
         EntityManager manager = this.getEntityManager();
         GenericRepository repository = new GenericRepository(manager);
@@ -91,12 +94,12 @@ public class ManutencaoController implements Serializable {
         repository.update(this.getManutencao());
         this.setManutencao(new Manutencao());
     }
-   /* public void alterar() {
-        EntityManager manager = this.getEntityManager();
-        GenericRepository repository = new GenericRepository(manager);
-        repository.update(this.getManutencao());
-        this.setManutencao(new Manutencao());
-    }*/
+    /* public void alterar() {
+     EntityManager manager = this.getEntityManager();
+     GenericRepository repository = new GenericRepository(manager);
+     repository.update(this.getManutencao());
+     this.setManutencao(new Manutencao());
+     }*/
 
     public void remover() {
         EntityManager manager = this.getEntityManager();
@@ -112,6 +115,15 @@ public class ManutencaoController implements Serializable {
         EntityManager entityManager = (EntityManager) FacesContext.getCurrentInstance().
                 getApplication().getELResolver().getValue(elContext, null, "entityManager");
         return entityManager;
+    }
+
+    public void listaPorSituacao() throws IOException {
+        EntityManager manager = this.getEntityManager();
+        GenericRepository repository = new GenericRepository(manager);
+        this.setAuxManutencoes(repository.manutencaoPorSituacao(this.auxSituacao));
+
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/Rental/oficina/listaBuscas.xhtml");
+
     }
 
     /**
@@ -162,5 +174,33 @@ public class ManutencaoController implements Serializable {
      */
     public void setAuxVeiculo(Veiculo auxVeiculo) {
         this.auxVeiculo = auxVeiculo;
+    }
+
+    /**
+     * @return the auxSituacao
+     */
+    public String getAuxSituacao() {
+        return auxSituacao;
+    }
+
+    /**
+     * @param auxSituacao the auxSituacao to set
+     */
+    public void setAuxSituacao(String auxSituacao) {
+        this.auxSituacao = auxSituacao;
+    }
+
+    /**
+     * @return the auxManutencoes
+     */
+    public List<Manutencao> getAuxManutencoes() {
+        return auxManutencoes;
+    }
+
+    /**
+     * @param auxManutencoes the auxManutencoes to set
+     */
+    public void setAuxManutencoes(List<Manutencao> auxManutencoes) {
+        this.auxManutencoes = auxManutencoes;
     }
 }
